@@ -1,14 +1,11 @@
 <template>
-  <div class="bg-slate-100 height-full">
+  <div class="bg-slate-100 h-full pb-16">
     <NavHeader />
     <NuxtLayout name="content">
       <NuxtPage />
     </NuxtLayout>
+    <FloatingButton />
   </div>
 </template>
 
-<style lang="less" scoped>
-  .height-full {
-    height: 100vh;
-  }
-</style>
+<style lang="less" scoped></style>

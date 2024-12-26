@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Author: Wangwenchao
  * @Date: 2024-12-23 14:47:48
  * @LastEditTime: 2024-12-23 19:39:37
@@ -10,14 +10,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   typescript: {
-    shim: false
+    shim: false,
   },
-  modules: [
-    '@nuxtjs/tailwindcss'
-  ],
-  css: [
-    '~/assets/css/tailwind.css'
-  ],
+  modules: ['@nuxtjs/tailwindcss'],
+  css: ['~/assets/css/tailwind.css'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -41,4 +37,4 @@ export default defineNuxtConfig({
       // },
     },
   },
-})
+});

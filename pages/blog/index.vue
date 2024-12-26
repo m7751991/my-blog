@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto flex gap-8">
+  <div class="container mx-auto flex gap-16">
     <div class="flex-1">
       <type-bar />
-      <blog-list />
+      <article-list />
     </div>
-    <sidebar-bar />
+    <Sidebar />
   </div>
 </template>
 

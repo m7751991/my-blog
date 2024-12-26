@@ -17,10 +17,14 @@ export default {
       fontSize: ({ theme }) => ({
         ...theme('spacing'),
       }),
+      colors: {
+        customGray: 'rgb(202 205 210)', // 自定义灰色
+        f7f7f7: '#f7f7f7',
+      },
     },
   },
   daisyui: {
-    themes: ['light'],
+    themes: ['light', 'dark'],
   },
   // require("@tailwindcss/typography")
   plugins: [require('daisyui')],
