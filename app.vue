@@ -8,4 +8,9 @@
   </div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less">
+  body {
+    height: 100vh;
+    background-color: rgb(241, 245, 249, 1);
+  }
+</style>

@@ -1,20 +1,25 @@
 <template>
   <div class="mt-16 overflow-hidden">
     <div
-      v-for="(card, index) in cards"
+      v-for="(item, index) in blogList"
       :key="index"
       ref="cardRefs"
       class="transition-all duration-500 ease-in-out opacity-0 translate-y-[80%]"
     >
-      <Card :id="1" />
+      <Card :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import type { BlogResponseType, BlogModelType } from '@/types';
   const Card = defineAsyncComponent(() => import('./components/Card.vue'));
-  const cards = ref(Array(10).fill(null));
+
+  const blogList = ref<BlogModelType[]>([]);
   const cardRefs = ref<HTMLElement[]>([]);
+
+  const { data, status } = await useRequest<BlogResponseType<BlogModelType[]>, any>('get', '/blogs');
+  blogList.value = data.value.data;
 
   onMounted(() => {
     const observer = new IntersectionObserver(entries => {
