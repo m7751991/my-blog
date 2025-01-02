@@ -1,10 +1,7 @@
 <template>
-  <div class="flex gap-16">
-    <div class="flex-1">
-      <Carousel :images="images" autoplay />
-      <article-list />
-    </div>
-    <Sidebar />
+  <div class="flex flex-col">
+    <Carousel :images="images" autoplay />
+    <article-list />
   </div>
 </template>
 

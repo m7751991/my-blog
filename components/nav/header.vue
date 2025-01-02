@@ -7,7 +7,7 @@
     <div class="navbar-start">
       <a
         class="btn btn-ghost text-2xl text-primary font-semibold hover:text-secondary transition duration-300"
-        @click="navTo('/home')"
+        @click="navTo('/')"
         >MyBlog</a
       >
     </div>
@@ -16,9 +16,7 @@
         <li v-for="(item, index) of navList" :key="index">
           <a
             @click="navTo(item.path)"
-            :class="
-              activeClass(item.path) + ' text-gray-600 hover:text-secondary transition duration-300 font-semibold'
-            "
+            :class="activeClass(item) + ' text-gray-600 hover:text-secondary transition duration-300 font-semibold'"
             >{{ item.title }}</a
           >
         </li>
@@ -47,37 +45,42 @@
 
 <script lang="ts" setup>
   const route = useRoute();
-  console.log(route.path, 'route');
+  const router = useRouter();
+  console.log(router, route, '321');
 
   const navList = ref([
     {
       title: '首页',
       path: '/',
+      name: 'index',
     },
     {
       title: '博客',
-      path: '/blog',
+      path: '/blogs/1',
+      name: 'blogs-categoryId-keyWord',
     },
     {
       title: '留言',
       path: '',
+      name: 'message',
     },
     {
       title: '归档',
       path: '',
+      name: 'archive',
     },
   ]);
   const keyWord = ref(''); // 定义 keyWord 变量
   const isScroll = ref(false);
 
   const activeClass = computed(() => {
-    return (path: string): string => {
-      return route.path === path ? 'bg-primary text-white' : '';
+    return (item: (typeof navList.value)[0]): string => {
+      return route.name === item.name ? 'bg-primary text-white' : '';
     };
   });
 
   const search = () => {
-    console.log('Searching for:', keyWord.value);
+    navigateTo(`/blogs/${route.params.categoryId}/${keyWord.value}`);
   };
 
   const navTo = (path: string): void => {

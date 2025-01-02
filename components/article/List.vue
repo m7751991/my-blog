@@ -12,29 +12,53 @@
 </template>
 
 <script lang="ts" setup>
-  import type { BlogResponseType, BlogModelType } from '@/types';
+  import type { ResponseType, BlogModelType } from '@/types';
+  const observer = ref<IntersectionObserver | null>(null);
   const Card = defineAsyncComponent(() => import('./components/Card.vue'));
+  const route = useRoute();
 
   const blogList = ref<BlogModelType[]>([]);
   const cardRefs = ref<HTMLElement[]>([]);
 
-  const { data, status } = await useRequest<BlogResponseType<BlogModelType[]>, any>('get', '/blogs');
-  blogList.value = data.value.data;
-
-  onMounted(() => {
-    const observer = new IntersectionObserver(entries => {
+  const observerFn = () => {
+    observer.value = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.remove('opacity-0', 'translate-y-[80%]');
-          observer.unobserve(entry.target); // 停止观察
+          observer.value?.unobserve(entry.target); // 停止观察
         }
       });
     });
     cardRefs.value.forEach(card => {
       if (card) {
-        observer.observe(card); // 观察每个卡片
+        observer.value?.observe(card); // 观察每个卡片
       }
     });
+  };
+
+  const fetchBlogList = async () => {
+    const categoryId = route.params.categoryId;
+    const keyWord = route.params.keyWord;
+    const params = {
+      categoryId: categoryId,
+      title: keyWord,
+    };
+
+    const { data, status } = await useRequest<ResponseType<BlogModelType[]>, typeof params>(
+      'get',
+      '/blogs/search',
+      params
+    );
+    blogList.value = data.value.data;
+  };
+  await fetchBlogList();
+
+  onMounted(() => {
+    observerFn();
+  });
+
+  onBeforeUnmount(() => {
+    observer.value?.disconnect();
   });
 </script>
 

@@ -23,7 +23,6 @@
 
   const next = () => {
     currentIndex.value = (currentIndex.value + 1) % props.images.length;
-    console.log(currentIndex.value, '???');
   };
 
   const prev = () => {
@@ -43,7 +42,7 @@
 
   const startAutoplay = () => {
     stopAutoplay();
-    autoplayInterval.value = setInterval(next, 5000);
+    autoplayInterval.value = setInterval(next, 3000);
   };
 
   const stopAutoplay = () => {
@@ -55,7 +54,7 @@
 
   onMounted(() => {
     if (props.autoplay) {
-      // startAutoplay();
+      startAutoplay();
     }
   });
 

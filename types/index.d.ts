@@ -24,3 +24,18 @@ export type BlogResponseType<T> = {
   message: string;
   status: boolean;
 };
+export type ResponseType<T> = {
+  code: number;
+  data: T;
+  message: string;
+  status: boolean;
+};
+
+export interface CategoryModelType {
+  id: number;
+  name: string;
+  description?: string;
+  createdAt: number;
+  updatedAt?: number;
+  blogCount: number;
+}
